@@ -1,0 +1,73 @@
+﻿@model CategoryProduct.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Categories" asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                @* <input asp-for="Picture" class="form-control" /> *@
+                @*改用下行使用圖片顯示*@
+                <partial name="_ShowPicturePartial" />
+                <input asp-for="Picture" type="file" class="form-control" accept="image/*" />
+                @* <span asp-validation-for="Picture" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        // function previewImage(inputFile,img) {
+        //     if (inputFile.files != null && inputFile.files[0] != null) {
+        //         var allowtype = "image.*";
+        //         if (inputFile.files[0].type.match(allowtype)) {
+        //             var reader = new FileReader();
+        //             reader.onload = function (e) {
+        //                 img.prev().attr('src', e.target.result); //.prev()為找到符合其ID的html行數的前一行
+        //             };
+        //             reader.readAsDataURL(inputFile.files[0]);
+        //         }
+        //         else {
+        //             alert("不支援的檔案上傳格式!");
+        //         }
+        //     }
+        // }
+
+        // $("#Picture").on("change", function () { });
+        $("#Picture").change(function () {
+            // alert('chagne')
+            previewImage(this, $('#Picture').prev()); //為了使用相同的物件，所以加上.prev()
+        });
+    </script>
+}

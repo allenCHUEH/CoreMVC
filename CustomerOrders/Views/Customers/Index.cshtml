@@ -1,0 +1,39 @@
+﻿@model Customer
+<h3>客戶訂單</h3>
+
+<div class="container">
+    <div class="form-group">
+        <label asp-for="CustomerId" class="form-label">客戶:</label>
+        <select asp-for="CustomerId" asp-items="@ViewBag.Customers" class="form-control">
+            @* 沒有加option的話，會將第一個資料當預設，這樣沒辦法做想選擇第一項資料的change事件 *@
+            <option>--請選擇--</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div id="Orders"></div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#CustomerId").change(function () {
+                // alert("change");
+                if (CustomerId.value != '--請選擇--') {
+                    updateOrders();
+                }
+                else {
+                    $("#Orders").html
+                }
+            });
+        });
+        function updateOrders() {
+            $.ajax({
+                type:"GET",
+                url:`/Customers/Orders/${CustomerId.value}`
+            }).done(function (data) {
+                $("#Orders").html(data);
+            }).fail(function (err) {
+            });
+        }
+    </script>
+}

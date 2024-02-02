@@ -1,0 +1,11 @@
+﻿@model Category
+
+@if (Model.Picture != null)
+{
+    <img src="@Url.Action("ShowPic","Categories",new {id=Model.CategoryId})" title="@Model.Description" style="width:320px;height:240px" />
+}
+else
+{
+    @* <img src="~/images/noimage.jpg" title="尚無內容" style="width:320px;height:240px" /> *@
+    <img src="@Url.Content("~/images/noimage.jpg")" title="尚無內容" style="width:320px;height:240px" />
+}

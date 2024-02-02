@@ -1,0 +1,69 @@
+﻿@model CategoryProduct.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <img id="imgPre" style="width:320px;height:240px" src="~/images/NoImage.jpg" title="尚無內容" />
+                <input asp-for="Picture" type="file" class="form-control" accept="image/*" />
+                @* <span asp-validation-for="Picture" class="text-danger"></span> *@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script>
+        // function previewImage(inputFile, img) {
+        //     if (inputFile.files !=null && inputFile.files[0] != null) {
+        //         var allowtype = "image.*";
+        //         if (inputFile.files[0].type.match(allowtype)){
+        //             var reader = new FileReader();
+        //             reader.onload = function (e) {
+        //                 img.attr('src', e.target.result);
+        //             };
+        //             reader.readAsDataURL(inputFile.files[0]);
+        //         }
+        //         else{
+        //             alert("不支援的檔案上傳格式!");
+        //         }
+        //     }
+        // }
+        // $("#Picture").on("change", function () { });
+        $("#Picture").change(function () {
+            // alert('chagne')
+            previewImage(this, $("#imgPre"));
+        });
+    </script>
+}

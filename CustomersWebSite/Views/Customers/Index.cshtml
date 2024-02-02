@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section styles{
+    <style>
+        thead{
+            background-color:maroon;
+            color:white;
+        }
+    </style>
+}
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@* <table class="table" id="customersTable" style="width:100%"> 因為class="table"中有對標題欄位做設定，權限上無法覆蓋格式所以做移除的動作 *@
+    
+<table id="customersTable" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fax)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fax)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-CustomerID="@item.CustomerId">Edit</a> |
+                <a asp-controller="Customers" asp-action="Details" asp-route-CustomerID="@item.CustomerId">Details</a> |
+                    <a asp-action="Delete" asp-route-CustomerID="@item.CustomerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts
+{
+        @* https://github.com/laertejjunior/freezeheader/blob/master/js/jquery.freezeheader.js *@
+    <script src="~/js/jquery.freezeheader.min.js" asp-append-version="true"></script> @*  asp-append-version="true"自動加入新版本 *@
+    <script>
+        $(document).ready(function(){
+            $("#customersTable").freezeHeader(
+                {
+                    "width": "100%",
+                    "height": "600px"
+                }
+            );
+        });
+    </script>
+}

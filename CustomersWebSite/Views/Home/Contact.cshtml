@@ -1,0 +1,36 @@
+﻿@model ContactViewModel
+
+@section Styles
+{
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+}
+<form asp-controller="Home" asp-action="Contact">
+    <div class="container">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="form-label">@Html.DisplayNameFor(model=>model.Name)</label>
+            <input asp-for="Name" type="text" class="form-control" />
+            @* <span asp-validation-for="Name" class="text-danger"></span> *@
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="form-label">@Html.DisplayNameFor(model => model.Email)</label>
+            <input asp-for="Email" type="text" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="form-label">@Html.DisplayNameFor(model => model.Phone)</label>
+            <input asp-for="Phone" type="text" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success"><i class="fa-solid fa-car-side"></i> 提交</button>
+        </div>
+        @* <input name="__RequestVerificationToken" type="hidden" value="防偽標籤內容"/>  CoreMVC透過FormTagHelper內建*@ 
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

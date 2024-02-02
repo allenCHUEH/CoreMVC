@@ -1,0 +1,69 @@
+﻿@section styles
+{
+    <link href="~/lib/datatables/css/jquery.datatables.min.css" rel="stylesheet" />
+    <style>
+        thead {
+            background-color: deepskyblue;
+            color:blue
+        }
+    </style>
+}
+@* body *@
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ProductID</td>
+                <td>ProductName</td>
+                <td>SupplierID</td>
+                <td>CategoryID</td>
+                <td>QuantityPerUnit</td>
+                <td>UnitPrice</td>
+                <td>UnitsInStock</td>
+                <td>UnitsOnOrder</td>
+                <td>ReorderLevel</td>
+                <td>Discontinued</td>
+            </tr>
+        </thead>
+    </table>
+
+@* //HTML內容 *@
+@section Scripts
+{
+    
+    
+
+    @* 使用datatable套件可以做到即時顯示，排序跟範圍顯示 *@
+    <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+    <script src="//cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // alert("ready");
+            $('table').dataTable({
+                ajax: { //ajax呼叫不會造成網頁刷新，html呼叫會
+                    // type: 'Post',
+                    type: 'GET',
+                    url: "/Products/IndexJson",//json格式的路徑
+                    dataSrc: function (json) { return json; }
+                },
+                columns: [
+                    { "data": "productId", "width": "10%" },
+                    { "data": "productName", "width": "10%" },
+                    { "data": "supplierId", "width": "10%" },
+                    { "data": "categoryId", "width": "10%" },
+                    { "data": "quantityPerUnit", "width": "10%" },
+                    { "data": "unitPrice", "width": "10%" },
+                    { "data": "unitsInStock", "width": "10%" },
+                    { "data": "unitsOnOrder", "width": "10%" },
+                    { "data": "reorderLevel", "width": "10%" },
+                    { "data": "discontinued", "width": "10%" },
+                ],
+                fixedHeader: {
+                    header:true
+                },
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/zh-HANT.json'
+                },
+            })
+        });
+    </script>
+}
